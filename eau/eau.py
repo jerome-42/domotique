@@ -3,7 +3,11 @@
 import time
 import RPi.GPIO as GPIO
 
+nbTop = 0
+
 def cb(arg):
+    global nbTop
+    nbTop = nbTop + 1
     print "impulsion !"
 
 
@@ -13,4 +17,7 @@ GPIO.add_event_detect(23,GPIO.FALLING)
 GPIO.add_event_callback(23,cb)
 
 while True:
-    time.sleep(60)
+    nbTop = 0
+    time.sleep(1)
+    Calc = (nbTop * 60 / 7.5)
+    print "Calc: %d L/hour" % Calc
